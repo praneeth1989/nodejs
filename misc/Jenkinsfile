@@ -7,7 +7,7 @@ node {
    }
    stage('test') {
      nodejs(nodeJSInstallationName: 'nodejs') {
-       sh 'npm install --only=dev'
+       sh 'ls -l /var/jenkins_home/'
        sh 'npm test'
      }
    }
