@@ -10,9 +10,8 @@ node {
      def myTestContainer = docker.image('node')
      myTestContainer.pull()
      myTestContainer.inside {
-     sh 'cd /var/jenkins_home/workspace/Nodejs-Pipeline-docker'
-       sh 'npm install --only=dev'
-       sh 'npm test'
+       sh '/var/jenkins_home/workspace/Nodejs-Pipeline-docker/npm install --only=dev'
+       sh '/var/jenkins_home/workspace/Nodejs-Pipeline-docker/npm test'
      }
    }
    stage('test with a DB') {
