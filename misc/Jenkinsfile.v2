@@ -10,7 +10,7 @@ node {
      myTestContainer.pull()
      myTestContainer.inside {
        echo '#!/bin/bash'
-       sh 'npm install'
+       sh 'npm install --only=dev'
        sh 'npm test'
      }
    }
