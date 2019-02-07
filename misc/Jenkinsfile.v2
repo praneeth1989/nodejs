@@ -10,6 +10,7 @@ node {
      myTestContainer.pull()
      myTestContainer.inside {
        echo '#!/bin/bash'
+       sh 'chmod -r 777 /var/jenkins_home/workspace'
        sh 'npm install --only=dev'
        sh 'npm test'
      }
