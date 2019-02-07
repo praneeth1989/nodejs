@@ -10,6 +10,7 @@ node {
      def myTestContainer = docker.image('node')
      myTestContainer.pull()
      myTestContainer.inside("-u 0"){
+     sh "sudo chown jenkins: -R \$PWD/"
        sh "npm install --only=dev"
        sh "npm test"
      }
