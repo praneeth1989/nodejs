@@ -20,7 +20,9 @@ node {
      sh "echo jenkins ALL=(ALL) NOPASSWD:ALL >> vimsudo"
      sh "sudo chmod 777 -R /var/jenkins_home/workspace/Nodejs@tmp/*"
        sh "npm install --only=dev"
+       sh "sudo chmod 777 -R /var/jenkins_home/workspace/Nodejs@tmp/*"
        sh "npm test"
+       sh "sudo chmod 777 -R /var/jenkins_home/workspace/Nodejs@tmp/*"
      }
    }
    
@@ -28,9 +30,9 @@ node {
      def mysql = docker.image('mysql').run("-e MYSQL_ALLOW_EMPTY_PASSWORD=yes") 
      def myTestContainer = docker.image('node')
      myTestContainer.pull()
-     sh "sudo chmod 777 -R /var/jenkins_home/workspace/Nodejs@tmp/durable-*"
      myTestContainer.inside("--link ${mysql.id}:mysql") { // using linking, mysql will be available at host: mysql, port: 3306
-          sh "npm install" 
+         sh "sudo chmod 777 -R /var/jenkins_home/workspace/Nodejs@tmp/*"
+         sh "npm install" 
           sh "npm test"                    
      }                                   
      mysql.stop()
