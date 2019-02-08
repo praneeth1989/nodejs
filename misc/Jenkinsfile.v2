@@ -10,7 +10,7 @@ node {
      def myTestContainer = docker.image('node')
      myTestContainer.pull()
      myTestContainer.inside{
-     sh "sudo chmod 777 /var/jenkins_home/workspace/Nodejs@tmp"
+     sh "sudo chmod 777 -r /var/jenkins_home/workspace/Nodejs@tmp/*"
        sh "sudo npm install --only=dev"
        sh "sudo npm test"
      }
