@@ -12,9 +12,11 @@ node {
    }
  stage('test') {
      def myTestContainer = docker.image('node')
-     sh "sudo chmod 777 -R /var/jenkins_home/workspace/Nodejs@tmp/durable-*"
      myTestContainer.pull()
-     myTestContainer.inside("-u 0:0"){
+     myTestContainer.inside("-u root"){
+     sh "apt update"
+     sh "apt install vim sudo"
+     sh " ls -l"
      sh "sudo chmod 777 -R /var/jenkins_home/workspace/Nodejs@tmp/*"
        sh "npm install --only=dev"
        sh "npm test"
