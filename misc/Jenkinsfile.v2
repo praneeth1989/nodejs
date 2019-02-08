@@ -6,17 +6,16 @@ node {
      sh "git rev-parse --short HEAD > .git/commit-id"
      sh "sudo chmod 777 /var/jenkins_home/workspace/*"
      sh "sudo chmod 777 /var/jenkins_home/workspace/Nodejs/*"
+     sh "sudo chmod 777 /var/jenkins_home/workspace/Nodejs@tmp/*"
+     sh "sudo chmod 777 /var/jenkins_home/workspace/Nodejs@2@tmp/*"
      commit_id = readFile('.git/commit-id').trim()
    }
  stage('test') {
      def myTestContainer = docker.image('node')
      myTestContainer.pull()
      myTestContainer.inside{
-     sh "sudo chmod 777 /var/jenkins_home/workspace/*"
-     sh "sudo chmod 777 /var/jenkins_home/workspace/Nodejs/*"
-     sh "sudo chmod 777 /var/jenkins_home/workspace/Nodejs@tmp/*"
-       sh "sudo npm install --only=dev"
-       sh "sudo npm test"
+       sh "npm install --only=dev"
+       sh "npm test"
      }
    }
    
@@ -25,8 +24,8 @@ node {
      def myTestContainer = docker.image('node')
      myTestContainer.pull()
      myTestContainer.inside("--link ${mysql.id}:mysql") { // using linking, mysql will be available at host: mysql, port: 3306
-          sh "sudo npm install" 
-          sh "sudo npm test"                    
+          sh "npm install" 
+          sh "npm test"                    
      }                                   
      mysql.stop()
    }                                     
