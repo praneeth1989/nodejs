@@ -14,16 +14,7 @@ node {
        sh "npm test"
      }
    }
-   stage('test with a DB') {
-     def mysql = docker.image('mysql').run("-e MYSQL_ALLOW_EMPTY_PASSWORD=yes") 
-     def myTestContainer = docker.image('node')
-     myTestContainer.pull()
-     myTestContainer.inside("--link ${mysql.id}:mysql") { // using linking, mysql will be available at host: mysql, port: 3306
-          sh "npm install" 
-          sh "npm test"                    
-     }                                   
-     mysql.stop()
-   }                                     
+
    stage('docker build/push') {            
      docker.withRegistry('https://cloud.docker.com/repository/docker/', 'dockerhub') {
        def app = docker.build("praneethatmecs/nodejsapp:${commit_id}", '.').push()
