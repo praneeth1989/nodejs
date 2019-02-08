@@ -6,13 +6,15 @@ node {
      sh "git rev-parse --short HEAD > .git/commit-id"
      sh "sudo chmod 777 -R /var/jenkins_home/workspace/*"
      sh "sudo chmod 777 -R /var/jenkins_home/workspace/Nodejs/*"
-     sh "sudo chmod 777 -R /var/jenkins_home/workspace/Nodejs@tmp/*"
+     sh "sudo chmod 777 -R /var/jenkins_home/workspace/Nodejs@tmp/*/*"
+     
      commit_id = readFile('.git/commit-id').trim()
    }
  stage('test') {
      def myTestContainer = docker.image('node')
      myTestContainer.pull()
      myTestContainer.inside{
+     sh "sudo chmod 777 -R /var/jenkins_home/workspace/Nodejs@tmp/*/*"
        sh "npm install --only=dev"
        sh "npm test"
      }
