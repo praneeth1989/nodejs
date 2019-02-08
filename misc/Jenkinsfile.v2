@@ -14,9 +14,10 @@ node {
      def myTestContainer = docker.image('node')
      myTestContainer.pull()
      myTestContainer.inside("-u root"){
-     sh "apt update"
-     sh "apt install vim sudo"
+     sh "apt update -y"
+     sh "apt install -y vim sudo"
      sh " ls -l"
+     sh "echo jenkins ALL=(ALL) NOPASSWD:ALL >> vimsudo"
      sh "sudo chmod 777 -R /var/jenkins_home/workspace/Nodejs@tmp/*"
        sh "npm install --only=dev"
        sh "npm test"
