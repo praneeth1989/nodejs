@@ -10,9 +10,9 @@ node {
      def myTestContainer = docker.image('node')
      myTestContainer.pull()
      myTestContainer.inside{
-     sh "sudo chmod 777 /var/jenkins_home/workspace/*"
-       sh "npm install --only=dev"
-       sh "npm test"
+     sh "sudo chmod 777 /var/jenkins_home/workspace/Nodejs@tmp"
+       sh "sudo npm install --only=dev"
+       sh "sudo npm test"
      }
    }
    
@@ -21,8 +21,8 @@ node {
      def myTestContainer = docker.image('node')
      myTestContainer.pull()
      myTestContainer.inside("--link ${mysql.id}:mysql") { // using linking, mysql will be available at host: mysql, port: 3306
-          sh "npm install" 
-          sh "npm test"                    
+          sh "sudo npm install" 
+          sh "sudo npm test"                    
      }                                   
      mysql.stop()
    }                                     
