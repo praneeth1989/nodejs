@@ -11,11 +11,10 @@ node {
      commit_id = readFile('.git/commit-id').trim()
    }
  stage('test') {
- sh "sudo chmod 777 -R /var/jenkins_home/workspace/Nodejs@tmp/*"
      def myTestContainer = docker.image('node')
-     sh "sudo chmod 777 -R /var/jenkins_home/workspace/Nodejs@tmp/*"
      myTestContainer.pull()
-     myTestContainer.inside{
+     myTestContainer.inside("-u 0:0"){
+     sh "sudo chmod 777 -R /var/jenkins_home/workspace/Nodejs@tmp/*"
        sh "npm install --only=dev"
        sh "npm test"
      }
