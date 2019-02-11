@@ -17,11 +17,11 @@ sh 'mkdir -p $(pwd)/other'
      }
    }
    stage('test with a DB') {
-     def mysql = docker.image('mysql').run("-e MYSQL_ALLOW_EMPTY_PASSWORD=yes") 
+     def mysql = docker.image('mysql').run("-u root -e MYSQL_ALLOW_EMPTY_PASSWORD=yes") 
      def myTestContainer = docker.image('node:4.6')
      myTestContainer.pull()
      myTestContainer.inside("--link ${mysql.id}:mysql") { // using linking, mysql will be available at host: mysql, port: 3306
-          sh 'npm install --only=dev --unsafe-perm=true --allow-root' 
+          sh 'npm install --unsafe-perm=true --allow-root' 
           sh 'npm test'                     
      }                                   
      mysql.stop()
