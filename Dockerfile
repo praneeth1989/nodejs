@@ -4,4 +4,4 @@ ADD . /app
 RUN npm install
 EXPOSE 3000
 CMD npm start
-USER 800:800
+USER root
