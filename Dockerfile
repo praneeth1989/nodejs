@@ -1,5 +1,5 @@
 FROM node
-WORKDIR /var/jenkins_home/workspace/Nodejs/app
+WORKDIR /app
 ADD . /app
 RUN npm install
 EXPOSE 3000
