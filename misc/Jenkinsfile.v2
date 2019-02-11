@@ -9,6 +9,9 @@ node {
      def myTestContainer = docker.image('node:4.6')
      myTestContainer.pull()
      myTestContainer.inside('-u root'){
+     sh 'ls $HOME'
+     sh 'ls $JENKINS_HOME'
+sh 'mkdir -p $(pwd)/other'
        sh 'npm install --only=dev'
        sh 'npm test'
      }
