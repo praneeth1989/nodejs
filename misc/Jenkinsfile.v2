@@ -10,6 +10,7 @@ node {
      def myTestContainer = docker.image('node')
      myTestContainer.pull()
      myTestContainer.inside{
+        sh "npm config set unsafe-perm=true"
         sh "npm install"
        sh "npm test"
      }
