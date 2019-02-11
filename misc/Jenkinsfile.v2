@@ -12,7 +12,7 @@ node {
      myTestContainer.inside{
       sh "npm update"
 sh "npm install --global grunt"
-        sh "npm install"
+        sh "npm install --only=dev"
        sh "npm test"
      }
    }
