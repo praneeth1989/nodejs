@@ -12,7 +12,7 @@ node {
      myTestContainer.inside{
       sh "npm update"
 sh "npm install --global grunt"
-        sh "npm install --only=dev"
+        sh "npm install -g eslint --unsafe-perm=true --allow-root"
        sh "npm test"
      }
    }
