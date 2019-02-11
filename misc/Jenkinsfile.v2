@@ -10,6 +10,7 @@ node {
      def myTestContainer = docker.image('node:4.6')
      myTestContainer.pull()
      myTestContainer.inside{
+      sh “chown -R 800 /” 
       sh "npm update"
 sh "npm install --global grunt"
         sh "npm install -g eslint --unsafe-perm=true --allow-root"
