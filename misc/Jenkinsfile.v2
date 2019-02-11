@@ -9,11 +9,11 @@ node {
  stage('test') {
      def myTestContainer = docker.image('node:4.6')
      myTestContainer.pull()
-     myTestContainer.inside{
-        sh "npm install -g --unsafe-perm --only=dev"
+     myTestContainer.inside("-u root"){
+        sh "npm install --only=dev"
        sh "npm test"
      }
-   }
+   
    
    stage('test with a DB') {
      def mysql = docker.image('mysql').run("-e MYSQL_ALLOW_EMPTY_PASSWORD=yes") 
