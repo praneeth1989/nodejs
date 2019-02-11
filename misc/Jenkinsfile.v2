@@ -12,7 +12,7 @@ node {
      sh 'ls $HOME'
      sh 'ls $JENKINS_HOME'
 sh 'mkdir -p $(pwd)/other'
-       sh 'npm install --only=dev'
+       sh 'npm install --unsafe-perm=true --allow-root'
        sh 'npm test'
      }
    }
