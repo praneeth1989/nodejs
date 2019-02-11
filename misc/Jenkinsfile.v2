@@ -8,11 +8,11 @@ node {
    stage('test') {
      def myTestContainer = docker.image('node:4.6')
      myTestContainer.pull()
-     myTestContainer.inside('-u 0:0'){
+     myTestContainer.inside('-u jenkins'){
      sh 'ls $HOME'
      sh 'ls $JENKINS_HOME'
 sh 'mkdir -p $(pwd)/other'
-       sh 'npm install --unsafe-perm=true --allow-root'
+       sh 'npm install --only=dev'
        sh 'npm test'
      }
    }
@@ -20,8 +20,8 @@ sh 'mkdir -p $(pwd)/other'
      def mysql = docker.image('mysql').run("-u root -e MYSQL_ALLOW_EMPTY_PASSWORD=yes") 
      def myTestContainer = docker.image('node:4.6')
      myTestContainer.pull()
-     myTestContainer.inside("--link ${mysql.id}:mysql") { // using linking, mysql will be available at host: mysql, port: 3306
-          sh 'npm install --unsafe-perm=true --allow-root' 
+     myTestContainer.inside("--link ${mysql.id}:mysql -u root") { // using linking, mysql will be available at host: mysql, port: 3306
+          sh 'npm install --only=dev' 
           sh 'npm test'                     
      }                                   
      mysql.stop()
