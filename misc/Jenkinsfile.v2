@@ -10,7 +10,9 @@ node {
      def myTestContainer = docker.image('node:4.6')
      myTestContainer.pull()
      myTestContainer.inside{
-       sh "npm install -g"
+      sh "npm update"
+sh "npm install --global grunt"
+        sh "npm install"
        sh "npm test"
      }
    }
