@@ -1,5 +1,5 @@
 FROM node:4.6
-WORKDIR /app
+WORKDIR sudo /app
 ADD . /app
 RUN npm install
 EXPOSE 3000
