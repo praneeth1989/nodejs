@@ -5,18 +5,15 @@ node {
      sh "git rev-parse --short HEAD > .git/commit-id"
      commit_id = readFile('.git/commit-id').trim()
    }
-   stage('test') {
+   stage('Build') {
      def myTestContainer = docker.image('node:4.6')
      myTestContainer.pull()
      myTestContainer.inside('-u root'){
-     sh 'ls $HOME'
-     sh 'ls $JENKINS_HOME'
-sh 'mkdir -p $(pwd)/other'
        sh 'npm install --only=dev'
        sh 'npm test'
      }
    }
-   stage('test with a DB') {
+   stage('Build DB') {
      def mysql = docker.image('mysql').run("-u root -e MYSQL_ALLOW_EMPTY_PASSWORD=yes") 
      def myTestContainer = docker.image('node:4.6')
      myTestContainer.pull()
